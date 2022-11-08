@@ -267,11 +267,12 @@ function removeBandwidthRestriction(sdp) {
   return sdp.replace(/b=AS:.*\r\n/, '').replace(/b=TIAS:.*\r\n/, '');
 }
 
-// query getStats every second
+// query sender data getStats every second
 window.setInterval(() => {
-  if (!pc1) {
+ if (!pc1) {
     return;
   }
+
   const sender = pc1.getSenders()[0];
   if (!sender) {
     return;
@@ -299,6 +300,7 @@ window.setInterval(() => {
 
           // append to chart
           bitrateSeries.addPoint(now, bitrate);
+          //console.log(bitrate);
           headerrateSeries.addPoint(now, headerrate);
           bitrateGraph.setDataSeries([bitrateSeries, headerrateSeries]);
           bitrateGraph.updateEndDate();
@@ -313,6 +315,19 @@ window.setInterval(() => {
     });
     lastResult = res;
   });
+}, 1000);
+
+// query receiver data getStats every second
+window.setInterval(() => {
+ if (!pc2) {
+    return;
+  }
+
+  const receiver = pc2.getReceivers()[0];
+  if (! receiver){
+      return;
+  }
+  console.log(receiver);
 }, 1000);
 
 // Return a number between 0 and maxValue based on the input number,
