@@ -212,6 +212,7 @@ bandwidthSelector.onchange = () => {
       'setParameters' in window.RTCRtpSender.prototype) {
     const sender = pc1.getSenders()[0];
     const parameters = sender.getParameters();
+    console.log(parameters);
     if (!parameters.encodings) {
       parameters.encodings = [{}];
     }
@@ -219,6 +220,9 @@ bandwidthSelector.onchange = () => {
       delete parameters.encodings[0].maxBitrate;
     } else {
       parameters.encodings[0].maxBitrate = bandwidth * 1000;
+      parameters.encodings[0].targetBitrate = bandwidth * 1000;
+      console.log("targetBitrate " + parameters.encodings[0].targetBitrate);
+        // can also play with maxFramerate 
     }
     sender.setParameters(parameters)
         .then(() => {
@@ -327,7 +331,6 @@ window.setInterval(() => {
   if (! receiver){
       return;
   }
-  console.log(receiver);
 }, 1000);
 
 // Return a number between 0 and maxValue based on the input number,

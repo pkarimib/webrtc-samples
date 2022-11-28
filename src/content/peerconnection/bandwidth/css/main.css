@@ -6,7 +6,7 @@
  *  tree.
  */
 video {
-  --width: 45%;
+  --width: 100%;
   width: var(--width);
   height: calc(var(--width) * 0.75);
 }
